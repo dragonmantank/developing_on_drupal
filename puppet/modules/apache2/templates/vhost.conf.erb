@@ -1,0 +1,11 @@
+NameVirtualHost *:80
+
+<VirtualHost *:80>
+    DocumentRoot <%= @doc_root %>
+    ServerName localhost
+    DirectoryIndex index.php
+
+    <Directory <%= @doc_root %>>
+        AllowOverride All 
+    </Directory>
+</VirtualHost>

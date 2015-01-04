@@ -1,0 +1,12 @@
+XHProf Profiler
+===============
+
+To Enable, edit the puppet/modules/apache2/templates/vhost.conf.erb file and add the following lines:
+
+php_value auto_prepend_file /vagrant/puppet/modules/xhprof/files/xhprof_header.php
+php_value auto_append_file /vagrant/puppet/modules/xhprof/files/xhprof_footer.php
+
+Reprovision the box and this will enable xhprof to profile the website. 
+
+DO NOT LEAVE THIS HERE OR COMMIT THESE CHANGES. While xhprof is not really detrimental to the running
+of a site, unless we're profiling we don't need to set up the profiler.
