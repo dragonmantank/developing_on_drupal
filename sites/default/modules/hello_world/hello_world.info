@@ -1,0 +1,5 @@
+name = Hello World Test
+description = Simple Hello World
+core = 7.x
+package = php[arch]
+version = "7.x-1.0"

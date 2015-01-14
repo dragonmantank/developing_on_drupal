@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ * This defines a few pages for us to use as examples:
+ *   - db-sample: Page to just display some form results
+ *   - db-sample-form: Sample form that interacts with the database
+ *   - admin/structure/db-sample: Configuration for the module
+ *
+ * @return array
+ *   Menu definition
+ */
+function db_sample_menu() {
+    $items = array();
+
+    $items['db-sample'] = array(
+        'type' => MENU_CALLBACK,
+        'title' => t('db-sample'),
+        'access arguments' => array('view content'),
+        'page callback' => 'db_sample_main',
+    );
+
+    $items['db-sample-form'] = array(
+        'type' => MENU_CALLBACK,
+        'title' => t('db-sample Forms'),
+        'access arguments' => array('view content'),
+        'page callback' => 'db_sample_form_page',
+        // This code exists in a different file, so we'll tell the Menu system to include this file
+        'file' => 'db_sample.form.inc',
+    );
+
+    $items['admin/structure/db-sample'] = array(
+        'title' => t('db-sample Admin'),
+        'description' => 'Configuration example for an admin form, for the DB Sample module',
+        'access arguments' => array('administer users'),
+        // Since we're working with the form, let Drupal just return the form for us instead of using a custom function,
+        // like db-sample's menu entry
+        'page callback' => 'drupal_get_form',
+        // Since drupal_get_form() takes a single argument of the form function to call, pass that as a page argument
+        'page arguments' => array('db_sample_admin_form'),
+        'file' => 'db_sample.admin.inc',
+    );
+
+    return $items;
+}
+
+/**
+ * Implements hook_theme().
+ * Allows us to use a custom theme when viewing the database output page
+ *
+ * @return array
+ *   Theme definition
+ */
+function db_sample_theme() {
+    return array(
+        // db_sample_page is the key that we can use with theme() to call this template
+        'db_sample_page' => array(
+            // Name of the template file, without .tpl.php at the end
+            'template' => 'db-sample-page',
+            // Default path to look for the template, in this case our templates/ folder in the module. If it exists
+            // in the actual theme, we will use the theme's version instead of the module's version
+            'path' => drupal_get_path('module', 'db_sample') . '/templates',
+            // We're going to pass into it some data, so we can use $data in the template itself
+            'arguments' => array('data' => null),
+        ),
+    );
+}
+
+/**
+ * Displays a list of names in the database
+ * This is provides an example of selecting information from the database using the fluent method via db_select(). We
+ * use the database result, which is iterable, and pass it into our template we defined in db_sample_theme.
+ *
+ * @return string
+ *   Our output
+ *
+ * @throws Exception
+ */
+function db_sample_main() {
+    $result = db_select('db_sample_names', 'n')
+        ->fields('n')
+        ->execute()
+    ;
+
+    return theme('db_sample_page', array('data' => $result));
+}
+

@@ -1,0 +1,7 @@
+name = Custom Block
+description = Custom Block
+core = 7.x
+package = php[arch]
+version = "7.x-1.0"
+
+configure = admin/structure/custom_block

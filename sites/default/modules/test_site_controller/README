@@ -1,0 +1,8 @@
+Test Site Controller
+====================
+
+Test Site Controller shows an example module that can be used with deployments to automatically turn modules on and off,
+or do other work, as part of the 'update.php' or 'drush updb' process.
+
+Each hook_update_N() entry will do whatever work is need to turn things on and off, or any additional site modifications,
+that are needed for each deploy.

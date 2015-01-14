@@ -1,0 +1,11 @@
+Custom Output Block
+===================
+
+The normal Blocks system in Drupal does not allow for exporting of blocks, which can be an issue for sites that use a
+deployment setup. While things like Boxes can be used to make exportable blocks, if the client changes the output of a
+Box then the Feature it is attached to will turn into Override, which again can make issues for deployment.
+
+This module shows a sample way to create a Block that the user can update.
+
+You can further customize this to add more blocks for the client to edit, as hook_block_info() and hook_block_view()
+will work against multiple blocks.

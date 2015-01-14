@@ -1,0 +1,5 @@
+name = Database Examples
+description = Database Examples
+core = 7.x
+package = php[arch]
+version = "7.x-1.0"

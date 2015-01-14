@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * Implements hook_hello_world().
+ * When hello_world invokes hook_hello_world, this function will be called. In this case we will return the name of
+ * the current day (Monday-Sunday). The hello_world module will take care of using this response.
+ *
+ * @return string
+ *   The current day's name
+ */
+function hello_world_mod_hello_world() {
+    return date('l');
+}
+
+/**
+ * Implements hook_hello_world_change_alter().
+ * Unlike normal hook calls, drupal_alter calls allow you to modify the data. In this case we will take the incoming
+ * string and append to it the current month's name. Since the value is passed by reference, we do not need to return
+ * anything.
+ *
+ * @param string $data
+ *   Incoming string to modify
+ */
+function hello_world_mod_hello_world_change_alter(&$data) {
+    $data .= PHP_EOL . date('F');
+}

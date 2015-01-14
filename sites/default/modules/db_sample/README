@@ -1,0 +1,18 @@
+DB Sample
+=========
+
+This module provides a few different examples of code.
+
+In db_sample_menu(), we are now using the 'file' key to tell Drupal where bits of code are located. The forms and admin
+functions have been moved to their own file, so we let Drupal know about that.
+
+We've also introduced using 'drupal_get_form' as a shortcut in db_sample_menu() for when you want to just display a
+form on a page without needing any other business logic. We also show the log form version of this in db-sample.
+
+Basic database reading and writing are shown in db_sample_main() and db_sample_form_submit().
+
+Module templating has also been show in db_sample_main() and db_sample_theme() by defining a custom template to use
+on that page.
+
+A sample admin form is also available that will allow the user to customize the title that appears above the list on
+/db-sample.

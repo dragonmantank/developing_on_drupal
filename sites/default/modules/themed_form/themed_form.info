@@ -1,0 +1,5 @@
+name = Themed Form Example
+description = Shows off complicated themed forms
+core = 7.x
+package = php[arch]
+version = "7.x-1.0"

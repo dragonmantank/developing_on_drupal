@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Enables the devel and views modules automatically
+ */
+function test_site_controller_update_7001() {
+    module_enable(array(
+        'devel',
+        'views',
+    ));
+}
+
+/**
+ * This module will disable the Hello World and Hello World Mod modules
+ */
+function test_site_controller_update_7002() {
+    module_disable(array(
+        'hello_world',
+        'hello_world_mod',
+    ));
+}

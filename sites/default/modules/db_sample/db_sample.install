@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ * This function defines a table definition for us to store names into.
+ *
+ * @returns array
+ *   Schema definition
+ */
+function db_sample_schema() {
+    $schema = array();
+
+    $schema['db_sample_names'] = array(
+        'description' => 'Stores names.',
+        'fields' => array(
+            'id' => array(
+                'description' => 'The primary identifier for the table.',
+                'type' => 'serial',
+                'unsigned' => true,
+                'not null' => true,
+            ),
+            'firstName' => array(
+                'description' => 'First Name of the signature',
+                'type' => 'varchar',
+                'length' => 100,
+                'not null' => true,
+                'default' => '',
+            ),
+            'middleName' => array(
+                'description' => 'Middle Name',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => true,
+                'default' => '',
+            ),
+            'lastName' => array(
+                'description' => 'Last Name of the signature',
+                'type' => 'varchar',
+                'length' => 100,
+                'not null' => true,
+                'default' => '',
+            ),
+        ),
+        'primary key' => array('id'),
+        'unique_keys' => array('full_name' => array('firstName', 'lastName')),
+        'indexes' => array('lastNameIndex' => array('lastName')),
+    );
+
+    return $schema;
+}
+
+/**
+ * Added middle name
+ */
+function db_sample_update_7001() {
+    $field = array(
+        'description' => 'Middle Name',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => true,
+        'default' => '',
+    );
+    db_add_field('db_sample_names', 'middleName', $field);
+}
+
+
+
+
+

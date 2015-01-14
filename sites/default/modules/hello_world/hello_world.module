@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ * This function allows us to define custom routes in Drupal, and attach different code to them.
+ *
+ * @return array
+ *   Route definitions
+ */
+function hello_world_menu() {
+    $items = array();
+
+    // Define a new route and URI, so /hello-world will be the URI to hit
+    $items['hello-world'] = array(
+        // This tells Drupal that we will be calling a custom function
+        'type' => MENU_CALLBACK,
+        // Title of the page
+        'title' => t('Hello World'),
+        // What permissions a user needs to visit the route
+        'access arguments' => array('view content'),
+        // What function to call when the route is accessed
+        'page callback' => 'hello_world_main',
+    );
+
+    $items['hello-world-raw'] = array(
+        'type' => MENU_CALLBACK,
+        'title' => t('Hello World'),
+        'access arguments' => array('view content'),
+        'page callback' => 'hello_world_raw',
+    );
+
+    return $items;
+}
+
+/**
+ * Generates a string and returns it for display
+ * For MENU_CALLBACKS, Drupal will react differently depending on if you return something or not. In this case we will
+ * be returning a string, which will cause Drupal to display our output in the site's layout.
+ *
+ * We are also invoking any other modules that have defined hook_hello_world (see the hello_world_mod module)
+ *
+ * @return string
+ */
+function hello_world_main() {
+    // Invoke hook_hello_world
+    $module_results = module_invoke_all('hello_world');
+    return 'Hello World<br>' . implode('<br>', $module_results);
+}
+
+/**
+ * Generates a string and just displays the raw text
+ * For MENU_CALLBACKS, Drupal will not display the site layout if it doesn't get a string back. In this case we are not
+ * returning anything, so Drupal will just display the raw output from our echo.
+ */
+function hello_world_raw() {
+    $string = 'Hello World';
+    // Invoke hook_hello_world_change_alter
+    drupal_alter('hello_world_change', $string);
+    echo $string;
+}

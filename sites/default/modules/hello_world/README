@@ -1,0 +1,8 @@
+Hello World
+===========
+
+This module shows off the very basic structure of a module. We provide a hook_menu() call via hello_world_menu() that
+sets up two routes, /hello-world and /hello-world-raw, and we also create two custom hooks.
+
+This module creates hook_hello_world, and hook_hello_world_change_alter. The module hello_world_mod shows to use these
+hooks.

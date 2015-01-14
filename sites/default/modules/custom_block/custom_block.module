@@ -1,0 +1,82 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ * Sets up an administrative link for defining the content of our custom block
+ *
+ * @return array
+ *   Menu items
+ */
+function custom_block_menu() {
+    $items = array();
+
+    $items['admin/structure/custom_block'] = array(
+        'title' => t('Custom Block Admin'),
+        'description' => 'Admin form for the Custom Block module',
+        'access arguments' => array('administer users'),
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('custom_block_admin_form'),
+    );
+
+    return $items;
+}
+
+/**
+ * Implements hook_form().
+ *
+ * @param array $form
+ *   Incoming form definition, if any
+ * @param array $form_state
+ *   Current form state
+ *
+ * @return array
+ *   Form definition
+ */
+function custom_block_admin_form($form, &$form_state) {
+    $form = array();
+    $form['custom_block_content'] = array(
+        '#type' => 'textarea',
+        '#default_value' => variable_get('custom_block_content', ''),
+        '#description' => 'Content that will go inside of the block. This can be any HTML, but not PHP',
+        // Setting #required to false so the user can enter empty content if they desire
+        '#required' => FALSE,
+        '#title' => 'Block Content',
+    );
+
+    return system_settings_form($form);
+}
+
+/**
+ * Implements hook_block_info().
+ * Returns the name of our block ('custom_block') and it's human readable description. We also set it to cache its
+ * display per page, since the output isn't being rebuilt every page view.
+ *
+ * @return array
+ *   Block definition
+ */
+function custom_block_block_info() {
+    $items = array();
+
+    $items['custom_block'] = array(
+        'info' => 'Our Custom Block',
+        'cache' => DRUPAL_CACHE_PER_PAGE,
+    );
+
+    return $items;
+}
+
+/**
+ * Implements hook_block_view().
+ * Grabs the content of the block from the 'custom_block_content' variable, and returns it.
+ *
+ * @param string $delta
+ * @return array
+ */
+function custom_block_block_view($delta = '') {
+    if($delta == 'custom_block') {
+        return array(
+            'subject' => 'Custom Block',
+            'content' => variable_get('custom_block_content'),
+        );
+    }
+}

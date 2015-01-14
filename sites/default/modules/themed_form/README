@@ -1,0 +1,21 @@
+Themed Form Demo
+================
+
+This module should show off the usage of both hook_theme() and a custom theme_*() function to control the output of a
+form.
+
+We define a new route in themed_form_menu() to view the form, at http://localhost:8080/themed-form. This page will show the
+customized output of our form. We will just be using drupal_get_form to return our form, to cut down on the amount of
+boilerplate code we will need to write, since we are doing no additional processing (other than theming) for the form.
+
+We define two theme entries in themed_form_theme(). One is a template file for us to use to control the output of the
+form, and the other is to alert Drupal that we would like to control (ie: override) the output for the form.
+
+When we visit the page, themed_form_form() is ultimately called to get a form definition. When this function returns,
+Drupal will pass output of the form to theme_themed_form_form() by virtue of our second entry in themed_form_theme().
+
+Inside that form we can control the output of the form. The uncommented version of the function will take the form
+definition and pass it into a template file for handing output, while the commented version will simply use string
+concatenation to build the HTML.
+
+We take that built-up HTML and return it, and Drupal will use that for the output.

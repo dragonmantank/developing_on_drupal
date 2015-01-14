@@ -1,0 +1,5 @@
+Hello World Mod
+===============
+
+This module works with Hello World to implement Hello World's hook_hello_world and hook_hello_world_change_alter hooks
+by implementing them.
